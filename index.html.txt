@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>AutoPlace</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Bienvenue chez AutoPlace</h1>
+    <p>Explorez et trouvez votre voiture idéale parmi les meilleures offres</p>
+  </header>
+
+  <section class="hero">
+    <h2>Recherchez votre voiture</h2>
+    <form>
+      <input type="text" placeholder="Marque ou modèle">
+      <input type="text" placeholder="Ville">
+      <button type="submit">Rechercher</button>
+       </form>
+  </section>
+
+  <section class="voitures">
+    <h2>Voitures en vedette</h2>
+    <div class="carte">
+      <img src="voiture1.jpg" alt="Voiture 1">
+      <h3>Peugeot 208</h3>
+      <p>Année : 2021 | Prix : 120.000 DH</p>
+      <button>Voir plus</button>
+    </div>
+    <div class="carte">
+      <img src="voiture2.jpg" alt="Voiture 2">
+      <h3>Hyundai Tucson</h3>
+      <p>Année : 2022 | Prix : 220.000 DH</p>
+      <button>Voir plus</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 AutoPlace. Tous droits réservés.</p>
+     </footer>
+</body>
+</html>
+<!-- À propos de AutoPlace -->
+<section class="about" style="padding: 40px; background-color: #f9f9f9;">
+  <h2>À propos de AutoPlace</h2>
+  <p>
+    AutoPlace est une plateforme innovante qui permet aux clients de découvrir, comparer et réserver leur voiture idéale
+    en ligne. Que vous soyez un particulier ou une entreprise, trouvez les meilleures offres des concessions partout au Maroc.
+  </p>
+</section>
+
+<!-- Contactez-nous -->
+<section class="contact" style="padding: 40px;">
+  <h2>Contactez-nous</h2>
+  <form>
+    <label for="nom">Nom :</label><br>
+    <input type="text" id="nom" name="nom" required><br><br>
+   <label for="email">Email :</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="message">Message :</label><br>
+    <textarea id="message" name="message" rows="5" required></textarea><br><br>
+
+    <button type="submit">Envoyer</button>
+  </form>
+</section>
+   <!-- Formulaire de filtre -->
+<div>
+  <label for="marque">Filtrer par marque:</label>
+  <select id="marque">
+    <option value="all">Toutes</option>
+    <option value="Toyota">Toyota</option>
+    <option value="BMW">BMW</option>
+  </select>
+
+  <label for="prix">Prix maximum:</label>
+  <input type="number" id="prix" placeholder="Ex: 200000">
+  <button onclick="filtrerVoitures()">Filtrer</button>
+</div>
+<!-- Liste de voitures -->
+<div id="voitures">
+  <div class="voiture" data-marque="Toyota" data-prix="150000">
+    <h3>Toyota Yaris</h3>
+    <p>150,000 MAD</p>
+    <button onclick="ouvrirDetails('Toyota Yaris', 150000)">Détails</button>
+  </div>
+  <div class="voiture" data-marque="BMW" data-prix="300000">
+    <h3>BMW Série 3</h3>
+    <p>300,000 MAD</p>
+    <button onclick="ouvrirDetails('BMW Série 3', 300000)">Détails</button>
+  </div>
+</div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Détails de la voiture</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f2f2f2;
+    }
+    .car-details {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+       margin: auto;
+    }
+    .car-details img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .car-details h2 {
+      margin-top: 0;
+      color: #004aad;
+    }
+    .car-details p {
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #004aad;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+   <div class="car-details">
+    <img src="https://via.placeholder.com/600x300" alt="Photo de voiture">
+    <h2 id="nomVoiture">BMW Série 3</h2>
+     <p><strong>Prix:</strong> <span id="prixVoiture">300,000 MAD</span></p>
+    <p><strong>Marque:</strong> BMW</p>
+    <p><strong>Année:</strong> 2022</p>
+    <p><strong>Kilométrage:</strong> 15,000 km</p>
+    <p><strong>Description:</strong> Une berline élégante, confortable et performante, parfaite pour la ville et la route.</p>
+    <a class="btn" href="index.html">← Retour</a>
+  </div>
+<script>
+    // plus tard : récupérer les données dynamiquement via URL
+  </script>
+</body>
+</html>
