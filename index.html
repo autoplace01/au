@@ -220,6 +220,49 @@ function envoyerCommande() {
 
   <button type="submit">Ajouter</button>
 </form>
+<section id="abonnement">
+  <h2>Devenir partenaire</h2>
+  <p>Abonnez-vous pour publier vos voitures sur AutoPlace</p>
 
+  <ul>
+    <li>✔ Publier des voitures illimitées</li>
+    <li>✔ Page personnalisée pour votre concession</li>
+    <li>✔ Support prioritaire</li>
+  </ul>
+
+  <button onclick="payerAbonnement()">S’abonner – 199 MAD/mois</button>
+</section>
+
+<script>
+  function payerAbonnement() {
+    alert("Redirection vers le paiement (simulation)");
+    // Vous pouvez ici connecter avec Stripe ou PayPal
+  }
+</script>
+<button onclick="payerCommande()">Payer cette voiture</button>
+
+<script>
+  function payerCommande() {
+    alert("Paiement en cours (simulation)");
+    // Ici aussi, Stripe ou autre passerelle à intégrer
+  }
+</script>
+<select id="filtre-marque">
+  <option value="">Toutes les marques</option>
+  <option value="Peugeot">Peugeot</option>
+  <option value="Renault">Renault</option>
+</select>
+
+<input type="number" id="filtre-prix" placeholder="Prix max">
+
+<button onclick="filtrer()">Filtrer</button>
+
+<script>
+  function filtrer() {
+    const marque = document.getElementById('filtre-marque').value;
+    const prix = document.getElementById('filtre-prix').value;
+    alert("Filtrage en cours : " + marque + ", max " + prix + " MAD");
+  }
+</script>
 
 
