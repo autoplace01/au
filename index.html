@@ -203,6 +203,23 @@ function envoyerCommande() {
 
 <div id="formulaireCommande" style="display:none; border:1px solid #ccc; padding:20px; width:300px; background:#f9f9f9;">
   <h3>Formulaire de commande</h3>
+<form id="ajouter-voiture" enctype="multipart/form-data">
+  <h2>Ajouter une voiture</h2>
+
+  <label>Marque :</label>
+  <input type="text" name="marque" required>
+
+  <label>Modèle :</label>
+  <input type="text" name="modele" required>
+
+  <label>Prix :</label>
+  <input type="number" name="prix" required>
+
+  <label>Images :</label>
+  <input type="file" name="images" multiple accept="image/*">
+
+  <button type="submit">Ajouter</button>
+</form>
 
 
 
