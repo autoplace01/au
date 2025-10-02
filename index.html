@@ -149,3 +149,59 @@
   </script>
 </body>
 </html>
+<!-- Recherche et filtres -->
+<div class="section-filtre">
+  <input type="text" id="recherche" placeholder="Rechercher une voiture..." onkeyup="filtrerVoitures()">
+  <select id="marque" onchange="filtrerVoitures()">
+    <option value="">Toutes</option>
+    <option value="Toyota">Toyota</option>
+    <option value="BMW">BMW</option>
+  </select>
+  <select id="prix" onchange="filtrerVoitures()">
+    <option value="">Tous les prix</option>
+    <option value="0-20000">0 - 20 000</option>
+    <option value="20001-50000">20 001 - 50 000</option>
+  </select>
+</div>
+
+<div id="liste-voitures">
+  <div class="voiture" data-marque="Toyota" data-prix="15000">Toyota Corolla - 15 000</div>
+  <div class="voiture" data-marque="BMW" data-prix="40000">BMW X3 - 40 000</div>
+ <div class="voiture" data-marque="Toyota" data-prix="30000">Toyota Camry - 30 000</div>
+</div>
+
+<style>
+  .voiture { padding: 10px; border: 1px solid #ccc; margin: 5px 0; cursor: pointer; }
+  .section-filtre input, .section-filtre select { padding: 8px; margin-right: 10px; }
+</style>
+
+<script>
+function filtrerVoitures() {
+  <input type="text" id="nom" placeholder="Nom" required><br><br>
+  <input type="tel" id="telephone" placeholder="Téléphone" required><br><br>
+  <input type="text" id="modeleVoiture" placeholder="Modèle de voiture" required><br><br>
+  <input type="number" id="prixSouhaite" placeholder="Prix souhaité" required><br><br>
+  <textarea id="message" placeholder="Commentaires supplémentaires"></textarea><br><br>
+  <button onclick="envoyerCommande()">Envoyer</button>
+  <button onclick="fermerFormulaire()">Annuler</button>
+</div>
+
+<script>
+function ouvrirFormulaire() {
+  document.getElementById('formulaireCommande').style.display = 'block';
+}
+function fermerFormulaire() {
+  document.getElementById('formulaireCommande').style.display = 'none';
+}
+
+function envoyerCommande() {
+  alert('Merci pour votre commande ! Nous vous contacterons bientôt.');
+  fermerFormulaire();
+}
+</script>
+html
+<button onclick="ouvrirFormulaire()">Commander maintenant</button>
+
+<div id="formulaireCommande" style="display:none; border:1px solid #ccc; padding:20px; width:300px; background:#f9f9f9;">
+  <h3>Formulaire de commande</h3>
+
