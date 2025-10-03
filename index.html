@@ -339,3 +339,21 @@ function envoyerCommande() {
   </style>
 </head>
 <body>
+  <script>
+  db.collection("cars").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const car = doc.data();
+      // مثال: عرض البيانات داخل div باسم "car-list"
+      const container = document.getElementById("car-list");
+      container.innerHTML += `
+        <div class="car-card">
+          <img src="car.image_url" alt="Voiture" />
+          <h3>{car.marque} - car.model</h3>
+          <p>Prix:{car.prix} MAD</p>
+          <p>${car.description}</p>
+        </div>
+      `;
+    });
+  });
+</script>
+<div id="car-list"></div>
