@@ -4,22 +4,67 @@
   <meta charset="UTF-8">
   <title>AutoPlace</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header, footer {
+      text-align: center;
+      background: #004aad;
+      color: white;
+      padding: 20px;
+    }
+    .hero, .about, .contact, .section-filtre, .voitures, #abonnement {
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .carte, .voiture, .car-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 8px;
+      background: white;
+    }
+    .carte img, .car-card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background: #004aad;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #003080;
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
     <h1>Bienvenue chez AutoPlace</h1>
     <p>Explorez et trouvez votre voiture idéale parmi les meilleures offres</p>
   </header>
 
+  <!-- Hero -->
   <section class="hero">
     <h2>Recherchez votre voiture</h2>
     <form>
       <input type="text" placeholder="Marque ou modèle">
       <input type="text" placeholder="Ville">
       <button type="submit">Rechercher</button>
-       </form>
+    </form>
   </section>
 
+  <!-- Voitures en vedette -->
   <section class="voitures">
     <h2>Voitures en vedette</h2>
     <div class="carte">
@@ -36,325 +81,110 @@
     </div>
   </section>
 
+  <!-- À propos -->
+  <section class="about">
+    <h2>À propos de AutoPlace</h2>
+    <p>
+      AutoPlace est une plateforme innovante qui permet aux clients de découvrir, comparer et réserver leur voiture idéale
+      en ligne. Que vous soyez un particulier ou une entreprise, trouvez les meilleures offres des concessions partout au Maroc.
+    </p>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact">
+    <h2>Contactez-nous</h2>
+    <form>
+      <input type="text" id="nom" name="nom" placeholder="Nom" required><br><br>
+      <input type="email" id="email" name="email" placeholder="Email" required><br><br>
+      <textarea id="message" name="message" rows="5" placeholder="Message..." required></textarea><br><br>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>
+
+  <!-- Formulaire commande -->
+  <div id="formulaireCommande" style="display:none; border:1px solid #ccc; padding:20px; width:300px; background:#f9f9f9; margin:auto;">
+    <h3>Formulaire de commande</h3>
+    <input type="text" id="nomClient" placeholder="Nom" required><br><br>
+    <input type="tel" id="telephone" placeholder="Téléphone" required><br><br>
+    <input type="text" id="modeleVoiture" placeholder="Modèle de voiture" required><br><br>
+    <input type="number" id="prixSouhaite" placeholder="Prix souhaité" required><br><br>
+    <textarea id="commentaires" placeholder="Commentaires supplémentaires"></textarea><br><br>
+    <button onclick="envoyerCommande()">Envoyer</button>
+    <button onclick="fermerFormulaire()">Annuler</button>
+  </div>
+  <button onclick="ouvrirFormulaire()">Commander maintenant</button>
+
+  <!-- Abonnement -->
+  <section id="abonnement">
+    <h2>Devenir partenaire</h2>
+    <p>Abonnez-vous pour publier vos voitures sur AutoPlace</p>
+    <ul>
+      <li>✔ Publier des voitures illimitées</li>
+      <li>✔ Page personnalisée pour votre concession</li>
+      <li>✔ Support prioritaire</li>
+    </ul>
+    <button onclick="payerAbonnement()">S’abonner – 199 MAD/mois</button>
+  </section>
+
+  <!-- Liste des voitures (depuis Firebase) -->
+  <h2 style="text-align:center;">Voitures disponibles</h2>
+  <div id="car-list" style="max-width:900px; margin:auto;"></div>
+
+  <!-- Footer -->
   <footer>
     <p>© 2025 AutoPlace. Tous droits réservés.</p>
-     </footer>
-</body>
+  </footer>
 
-<!-- À propos de AutoPlace -->
-<section class="about" style="padding: 40px; background-color: #f9f9f9;">
-  <h2>À propos de AutoPlace</h2>
-  <p>
-    AutoPlace est une plateforme innovante qui permet aux clients de découvrir, comparer et réserver leur voiture idéale
-    en ligne. Que vous soyez un particulier ou une entreprise, trouvez les meilleures offres des concessions partout au Maroc.
-  </p>
-</section>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js"></script>
+  <script>
+    // Config Firebase
+    const firebaseConfig = {
+      apiKey: "API_KEY",
+      authDomain: "PROJECT_ID.firebaseapp.com",
+      projectId: "PROJECT_ID",
+      storageBucket: "PROJECT_ID.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "APP_ID"
+    };
 
-<!-- Contactez-nous -->
-<section class="contact" style="padding: 40px;">
-  <h2>Contactez-nous</h2>
-  <form>
-    <label for="nom">Nom :</label><br>
-    <input type="text" id="nom" name="nom" required><br><br>
-   <label for="email">Email :</label><br>
-    <input type="email" id="email" name="email" required><br><br>
+    // Init
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-    <label for="message">Message :</label><br>
-    <textarea id="message" name="message" rows="5" required></textarea><br><br>
+    // Charger voitures depuis Firestore
+   db.collection("voitures").get().then((querySnapshot) => {
+  const container = document.getElementById("car-list");
+  querySnapshot.forEach((doc) => {
+    const car = doc.data();
+    container.innerHTML += `
+      <div class="car-card">
+        <img src="${car.image_url}" alt="Voiture" />
+        <h3>${car.marque} - ${car.modele}</h3>
+        <p>Prix : ${car.prix} MAD</p>
+        <p>${car.description}</p>
+      </div>
+    `;
+  });
+});
+    // Fonctions formulaire
+    function ouvrirFormulaire() {
+      document.getElementById('formulaireCommande').style.display = 'block';
+    }
+    function fermerFormulaire() {
+      document.getElementById('formulaireCommande').style.display = 'none';
+    }
+    function envoyerCommande() {
+      alert('Merci pour votre commande ! Nous vous contacterons bientôt.');
+      fermerFormulaire();
+    }
 
-    <button type="submit">Envoyer</button>
-  </form>
-</section>
-   <!-- Formulaire de filtre -->
-<div>
-  <label for="marque">Filtrer par marque:</label>
-  <select id="marque">
-    <option value="all">Toutes</option>
-    <option value="Toyota">Toyota</option>
-    <option value="BMW">BMW</option>
-  </select>
-
-  <label for="prix">Prix maximum:</label>
-  <input type="number" id="prix" placeholder="Ex: 200000">
-  <button onclick="filtrerVoitures()">Filtrer</button>
-</div>
-<!-- Liste de voitures -->
-<div id="voitures">
-  <div class="voiture" data-marque="Toyota" data-prix="150000">
-    <h3>Toyota Yaris</h3>
-    <p>150,000 MAD</p>
-    <button onclick="ouvrirDetails('Toyota Yaris', 150000)">Détails</button>
-  </div>
-  <div class="voiture" data-marque="BMW" data-prix="300000">
-    <h3>BMW Série 3</h3>
-    <p>300,000 MAD</p>
-    <button onclick="ouvrirDetails('BMW Série 3', 300000)">Détails</button>
-  </div>
-</div>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Détails de la voiture</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 30px;
-      background-color: #f2f2f2;
+    // Paiement simulation
+    function payerAbonnement() {
+      alert("Redirection vers le paiement (simulation)");
     }
-    .car-details {
-      background-color: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      max-width: 600px;
-       margin: auto;
-    }
-    .car-details img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-    .car-details h2 {
-      margin-top: 0;
-      color: #004aad;
-    }
-    .car-details p {
-      line-height: 1.6;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #004aad;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-  </style>
-</head>
-<body>
-   <div class="car-details">
-    <img src="https://via.placeholder.com/600x300" alt="Photo de voiture">
-    <h2 id="nomVoiture">BMW Série 3</h2>
-     <p><strong>Prix:</strong> <span id="prixVoiture">300,000 MAD</span></p>
-    <p><strong>Marque:</strong> BMW</p>
-    <p><strong>Année:</strong> 2022</p>
-    <p><strong>Kilométrage:</strong> 15,000 km</p>
-    <p><strong>Description:</strong> Une berline élégante, confortable et performante, parfaite pour la ville et la route.</p>
-    <a class="btn" href="index.html">← Retour</a>
-  </div>
-<script>
-    // plus tard : récupérer les données dynamiquement via URL
   </script>
 </body>
 </html>
-<!-- Recherche et filtres -->
-<div class="section-filtre">
-  <input type="text" id="recherche" placeholder="Rechercher une voiture..." onkeyup="filtrerVoitures()">
-  <select id="marque" onchange="filtrerVoitures()">
-    <h2>Détails du véhicule</h2>
-<p><strong>Marque:</strong> <span id="marque"></span></p>
-<p><strong>Année:</strong> <span id="annee"></span></p>
-<p><strong>Kilométrage:</strong> <span id="kilometrage"></span></p>
-<p><strong>Ville:</strong> <span id="ville"></span></p>
-<p><strong>État:</strong> <span id="etat"></span></p>
-<p><strong>Carburant:</strong> <span id="carburant"></span></p>
-<p><strong>Description:</strong> <span id="description"></span></p>
-<img id="image" src="" alt="Image du véhicule" width="300">
-    <option value="">Toutes</option>
-    <option value="Toyota">Toyota</option>
-    <option value="BMW">BMW</option>
-  </select>
-  <select id="prix" onchange="filtrerVoitures()">
-    <option value="">Tous les prix</option>
-    <option value="0-20000">0 - 20 000</option>
-    <option value="20001-50000">20 001 - 50 000</option>
-  </select>
-</div>
-
-<div id="liste-voitures">
-  <div class="voiture" data-marque="Toyota" data-prix="15000">Toyota Corolla - 15 000</div>
-  <div class="voiture" data-marque="BMW" data-prix="40000">BMW X3 - 40 000</div>
- <div class="voiture" data-marque="Toyota" data-prix="30000">Toyota Camry - 30 000</div>
-</div>
-
-<style>
-  .voiture { padding: 10px; border: 1px solid #ccc; margin: 5px 0; cursor: pointer; }
-  .section-filtre input, .section-filtre select { padding: 8px; margin-right: 10px; }
-</style>
-
-<script>
-function filtrerVoitures() {
-  <input type="text" id="nom" placeholder="Nom" required><br><br>
-  <input type="tel" id="telephone" placeholder="Téléphone" required><br><br>
-  <input type="text" id="modeleVoiture" placeholder="Modèle de voiture" required><br><br>
-  <input type="number" id="prixSouhaite" placeholder="Prix souhaité" required><br><br>
-  <textarea id="message" placeholder="Commentaires supplémentaires"></textarea><br><br>
-  <button onclick="envoyerCommande()">Envoyer</button>
-  <button onclick="fermerFormulaire()">Annuler</button>
-</div>
-
-<script>
-function ouvrirFormulaire() {
-  document.getElementById('formulaireCommande').style.display = 'block';
-}
-function fermerFormulaire() {
-  document.getElementById('formulaireCommande').style.display = 'none';
-}
-
-function envoyerCommande() {
-  alert('Merci pour votre commande ! Nous vous contacterons bientôt.');
-  fermerFormulaire();
-}
-</script>
-<button onclick="ouvrirFormulaire()">Commander maintenant</button>
-
-<div id="formulaireCommande" style="display:none; border:1px solid #ccc; padding:20px; width:300px; background:#f9f9f9;">
-  <h3>Formulaire de commande</h3>
-<form id="ajouter-voiture" enctype="multipart/form-data">
-  <h2>Ajouter une voiture</h2>
-
-  <label>Marque :</label>
-  <input type="text" name="marque" required>
-
-  <label>Modèle :</label>
-  <input type="text" name="modele" required>
-
-  <label>Prix :</label>
-  <input type="number" name="prix" required>
-
-  <label>Images :</label>
-  <input type="file" name="images" multiple accept="image/*">
-
-  <button type="submit">Ajouter</button>
-</form>
-<section id="abonnement">
-  <h2>Devenir partenaire</h2>
-  <p>Abonnez-vous pour publier vos voitures sur AutoPlace</p>
-
-  <ul>
-    <li>✔ Publier des voitures illimitées</li>
-    <li>✔ Page personnalisée pour votre concession</li>
-    <li>✔ Support prioritaire</li>
-  </ul>
-
-  <button onclick="payerAbonnement()">S’abonner – 199 MAD/mois</button>
-</section>
-
-<script>
-  function payerAbonnement() {
-    alert("Redirection vers le paiement (simulation)");
-    // Vous pouvez ici connecter avec Stripe ou PayPal
-  }
-</script>
-<button onclick="payerCommande()">Payer cette voiture</button>
-
-<script>
-  function payerCommande() {
-    alert("Paiement en cours (simulation)");
-    // Ici aussi, Stripe ou autre passerelle à intégrer
-  }
-</script>
-<select id="filtre-marque">
-  <option value="">Toutes les marques</option>
-  <option value="Peugeot">Peugeot</option>
-  <option value="Renault">Renault</option>
-</select>
-
-<input type="number" id="filtre-prix" placeholder="Prix max">
-
-<button onclick="filtrer()">Filtrer</button>
-
-<script>
-  function filtrer() {
-    const marque = document.getElementById('filtre-marque').value;
-    const prix = document.getElementById('filtre-prix').value;
-    alert("Filtrage en cours : " + marque + ", max " + prix + " MAD");
-  }
-</script>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Autoplace - Liste des Voitures</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      padding: 20px;
-    }
-
-    #car-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-.car-card {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 15px;
-      width: 300px;
-    }
-
-    .car-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 5px;
-    }
-
-    .car-card h3 {
-      margin: 10px 0 5px;
-    }
-
-    .car-card p {
-      margin: 5px 0;
-    }
-    
-<!-- Firebase App (core) -->
-<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
-
-<!-- Firebase Firestore -->
-<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js"></script>
-
-<script>
-  // إعداد Firebase
-  const firebaseConfig = {
-    apiKey: "API_KEY",
-    authDomain: "PROJECT_ID.firebaseapp.com",
-    projectId: "PROJECT_ID",
-        storageBucket: "PROJECT_ID.appspot.com",
-    messagingSenderId: "SENDER_ID",
-    appId: "APP_ID"
-  };
-
-  // تفعيل Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script>
- 
-  </style>
-</head>
-<body>
-  <script>
-  db.collection("voitures").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      const voiture = doc.data();
-      // مثال: عرض البيانات داخل div باسم "car-list"
-      const container = document.getElementById("voiture-list");
-      container.innerHTML += `
-        <div class="voiture-card">
-          <img src="voiture.image_url" alt="Voiture" />
-          <h3>{voiture.marque} - voiture.modele</h3>
-          <p>Prix:{voiture.prix} MAD</p>
-          <p>${voiture.description}</p>
-        </div>
-      `;
-    });
-  });
-</script>
-<div id="voiture-list"></div>
 
