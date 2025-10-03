@@ -1,8 +1,7 @@
-// تصفية voitures حسب marque و prix
+ // Filtrer les voitures selon la marque et le prix
 function filtrerVoitures() {
   const marque = document.getElementById('marque').value;
   const prixMax = parseInt(document.getElementById('prix').value || 0);
-
   const voitures = document.querySelectorAll('.voiture');
 
   voitures.forEach(voiture => {
@@ -16,30 +15,7 @@ function filtrerVoitures() {
   });
 }
 
-// فتح نافذة تفاصيل voiture
-function ouvrirDetails(voitureId) {
-  // هنا تقدر تستعمل Firebase لجلب البيانات الكاملة
-  db.collection("voitures").doc(voitureId).get()
-    .then(doc => {
-      if (doc.exists) {
-        const data = doc.data();
-
-        // عرض التفاصيل في صفحة جديدة أو مودال
-        document.getElementById('marqueDetail').textContent = data.marque;
-        document.getElementById('anneeDetail').textContent = data.annee;
-        document.getElementById('kilometrageDetail').textContent = data.kilometrage;
-        document.getElementById('villeDetail').textContent = data.ville;
-        document.getElementById('etatDetail').textContent = data.etat;
-        document.getElementById('carburantDetail').textContent = data.carburant;
-        document.getElementById('descriptionDetail').textContent = data.description;
-        document.getElementById('imageDetail').src = data.image_url;
-      } else {
-        alert("Voiture introuvable !");
-      }
-    })
-    .catch(error => {
-      console.error("Erreur lors de l'ouverture des détails :", error);
-    });
-}
-
-
+// Recherche par texte, marque et prix
+function rechercherVoitures() {
+  let texteRecherche = document.getElementById('recherche').value.toLowerCase();
+  let marque = document.getElementById('mar
