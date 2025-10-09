@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Autoplace</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Autoplace</h1>
+    <p>Plateforme en ligne pour acheter et vendre des voitures</p>
+  </header>
+
+  <section class="filtre">
+    <input type="text" id="recherche" placeholder="Rechercher une voiture..." />
+    <select id="marque">
+      <option value="all">Toutes les marques</option>
+      <option value="Toyota">Toyota</option>
+      <option value="Mercedes">Mercedes</option>
+      <option value="Peugeot">Peugeot</option>
+    </select>
+ <input type="number" id="prix" placeholder="Prix maximum" />
+    <button onclick="filtrerVoitures()">Filtrer</button>
+  </section>
+
+  <section class="voitures" id="liste-voitures">
+    <!-- Les voitures seront injectées ici dynamiquement -->
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Autoplace. Tous droits réservés.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
