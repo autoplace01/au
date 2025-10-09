@@ -1,0 +1,16 @@
+// Fonction pour filtrer les voitures
+function filtrerVoitures() {
+  const marque = document.getElementById('marque').value;
+  const prixMax = parseInt(document.getElementById('prix').value || 0);
+  const voitures = document.querySelectorAll('.voiture');
+
+  voitures.forEach(voiture => {
+    const voitureMarque = voiture.dataset.marque;
+    const voiturePrix = parseInt(voiture.dataset.prix);
+
+    const marqueMatch = (marque === 'all' || voitureMarque === marque);
+    const prixMatch = (prixMax === 0 || voiturePrix <= prixMax);
+
+    voiture.style.display = (marqueMatch && prixMatch) ? 'block' : 'none';
+  });
+}
