@@ -1,4 +1,27 @@
 // Fonction pour filtrer les voitures
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyA-gleKZm-S0AouqaocRy2iM5U5ziZ5Zwg",
+    authDomain: "autoplace-d482e.firebaseapp.com",
+    projectId: "autoplace-d482e",
+    storageBucket: "autoplace-d482e.firebasestorage.app",
+    messagingSenderId: "559785850769",
+    appId: "1:559785850769:web:04f2b8a4c37ae30916cc30",
+    measurementId: "G-RGX3MM26ZW"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 function filtrerVoitures() {
   const marque = document.getElementById('marque').value;
   const prixMax = parseInt(document.getElementById('prix').value || 0);
@@ -14,28 +37,3 @@ function filtrerVoitures() {
     voiture.style.display = (marqueMatch && prixMatch) ? 'block' : 'none';
   });
 }
-// Fonction pour ouvrir les détails (peut être développée plus tard)
-function function ouvrirDetails(nom, prix) 
-  alert(Détails de la voiture : :{nom}\nPrix : ${prix} MAD);
-}
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBWkbHz-fi15InLnJZg7i75VRDpBLMY3PM",
-  authDomain: "autoplace01-1f653.firebaseapp.com",
-  projectId: "autoplace01-1f653",
-  storageBucket: "autoplace01-1f653.firebasestorage.app",
-  messagingSenderId: "361871095391",
-  appId: "1:361871095391:web:f5d7b703c8c0f1e6188dea",
-  measurementId: "G-L9MK4SJ7J5"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
