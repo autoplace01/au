@@ -14,10 +14,9 @@ function filtrerVoitures() {
     voiture.style.display = (marqueMatch && prixMatch) ? 'block' : 'none';
   });
 }
-
 // Fonction pour ouvrir les détails (peut être développée plus tard)
-function ouvrirDetails(nom, prix) {
-  alert(`Détails de la voiture :\nNom : nom :{prix} MAD`);
+function function ouvrirDetails(nom, prix) 
+  alert(Détails de la voiture : :{nom}\nPrix : ${prix} MAD);
 }
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
